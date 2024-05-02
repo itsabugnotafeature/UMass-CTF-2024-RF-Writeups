@@ -51,6 +51,8 @@ ans =
 
 We see the factor of 8 again along with some other stuff (probably the length of the message, since we know it repeats) so there is a good chance that the flag is being transmitted as ascii data in the signal. In order to get binary ascii data we need to figure out how to get 1s and 0s out of this wave. We already saw that it only has two different levels so let's try the easy thing and assume the high level is a 1 and the low level is a 0.
 
+Aside: this technique is called Binary Phase Shift Keying (BPSK). The name is complex and so is the actual definition, however as you can see the implementation can be quite simple (even though this is sort of a degenerate form of BPSK to make it easier). Wikipedia has a good article on [BPSK](https://en.wikipedia.org/wiki/Phase-shift_keying). The gist is that a wave is transmitted either upright or inverted depending on whether we're sending a 1 or a 0. In this case, because I'm sampling the (cos) wave at one sample per wave, you don't really see the wave, just where it "starts", which is either a 1 or a -1 depending on whether it has been sent upside down or not. This is practically easy to build and also easy to comprehend, making it good for simple transmitters and beginner RF challenges :)
+
 The script below is written in Matlab but intentionally somewhat generic in order to make it easier to port to other languages.
 
 ```matlab
@@ -77,4 +79,11 @@ And just like that we get the flag, repeated several times as described.
 ```matlab
 >> red40-maxxing
 Its_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rock
+```
+
+As a shameless plug for Matlab here is how taking advantage of its signals processing library can drastically simplify the script (if you know that this is a kind of phase shift keying). (The not is necessary because for me at least it decoded it with the bits flipped.)
+
+```matlab
+recovered_samples = audioread("red40-maxxing.wav");
+disp(bin2char(not(pskdemod(recovered_samples, 2))));
 ```
