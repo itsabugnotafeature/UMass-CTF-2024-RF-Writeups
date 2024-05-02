@@ -37,6 +37,8 @@ It looks like there is only two levels that it moves back and forth from. If we 
 
 Looking at the autocorrelation of the signal we can see that there is clearly some structure in the wave. It appears to have the largest spikes at 264 sample intervals with smaller ones at every 8 samples.
 
+Aside: Correlation is a measure of how similar one sequence is to another. We can use it to find repeating structure in signals. It is calculated by sliding two copies of the message over each other at all possible overlaps and then multiplying them together. The result of this operation is that when the signals are similar there will be a very positive correlation result, when they are similar but one is inverted there will be a very negative correlation, when they are not similar there will be a near zero correlation. Autocorrelation is correlation between two copies of the same signal. If a signal has a repeating structure it will show up as spikes at multiples of the structure length.
+
 ![alt text](image-2.png)
 
 Matlab says that 264 factors to
