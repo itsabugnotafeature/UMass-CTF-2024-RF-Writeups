@@ -58,19 +58,22 @@ Aside: this technique is called Binary Phase Shift Keying (BPSK). The name is co
 The script below is written in Matlab but intentionally somewhat generic in order to make it easier to port to other languages.
 
 ```matlab
+% Read in the wav data
 recovered_samples = audioread("red40-maxxing.wav");
+% Declare space for the bits ahead of time (reduces array resizing)
 recovered_bits = zeros(length(recovered_samples), 1);
-
+% Loop over all samples and conver to bits
 for i = 1:length(recovered_bits)
+    % We arbitrarily assumed negatives were 0s and positives were 1s
     if recovered_samples((i - 1) + 1) < 0
         recovered_bits(i) = 0;
     else
         recovered_bits(i) = 1;
     end
 end
-
+% Display the result
 disp(bin2char(recovered_bits));
-
+% Function I got found on StackOverflow to convert binary to a string
 function origchar = bin2char(binvec)
    origchar = char(reshape(bin2dec(reshape(char(binvec + '0'),8,[]).'),1,[]));
 end
@@ -80,7 +83,7 @@ And just like that we get the flag, repeated several times as described.
 
 ```matlab
 >> red40-maxxing
-Its_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rockIts_not_just_a_boulder_its_a_rock
+Its_not_just_a_boulder_its_a_rockIts_not_just_a_...
 ```
 
 As a shameless plug for Matlab here is how taking advantage of its signals processing library can drastically simplify the script (if you know that this is a kind of phase shift keying). (The not is necessary because for me at least it decoded it with the bits flipped.)

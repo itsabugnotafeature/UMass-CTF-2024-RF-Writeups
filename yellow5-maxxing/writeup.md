@@ -47,18 +47,23 @@ Let's try correlating the 31 bit sequence against the signal. We know it repeats
 It is a little hard to tell the spikes from the rest of the signal, but looking at where we believe the message to start we can see that we do tend to get spikes at nice multiple of 31. It's not solid proof but it's encouraging. Let's write a script to take the dot product of the first 31 samples with signal at every 31 sample interval. We'll guess that a positive correlation means a 1 and a negative correlation means a 0.
 
 ```matlab
+% Read in wav data
 recovered_samples = audioread("yellow5-maxxing.wav");
+% Declare space ahead of time
 recovered_bits = zeros(length(recovered_samples) / 31, 1);
-
+% Loop over every 31 bit segment
 for i = 1:length(recovered_bits)
     start_bit = (i - 1) * 31 + 1;
+    % We arbitrarily assumed that the first 31 samples were a 1
+    % so positive correlation indicates a 1 bit, negative correlation
+    % indicates a 0 bit
     if dot(recovered_samples(start_bit:start_bit + 30), recovered_samples(1:31)) > 0
         recovered_bits(i) = 1;
     else
         recovered_bits(i) = 0;
     end
 end
-
+% Display results (see red40-maxxing write up for bin2char source code)
 disp(bin2char(recovered_bits(41:end)));
 ```
 
@@ -67,6 +72,22 @@ And just like that, we recover the message (after trimming the training bits).
 ```matlab
 >> yellow5-maxxing
 Krusty_Krab_pizza_is_the_pizza_for_you_and_meKrusty_Krab_pizza...
+```
+
+And here is the matlab solution. The only real difference is using the pskdemod function to turn the noise wave into nice 1s and 0s first. Since we were using correlation to extract the message bits anyway this really doesn't change much. It's important that we still use the dot product as the noise will still corrupt bits in the message, resulting in bit flips.
+
+```matlab
+recovered_symbols = pskdemod(recovered_samples, 2) * 2 - 1;
+for i = 1:length(recovered_bits)
+    start_bit = (i - 1) * 31 + 1;
+    if dot(recovered_symbols(start_bit:start_bit + 30), recovered_symbols(1:31)) > 0
+        recovered_bits(i) = 1;
+    else
+        recovered_bits(i) = 0;
+    end
+end
+disp("Good (matlab): ");
+disp(bin2char(recovered_bits(41:end)));
 ```
 
 Aside: This technique of transmitting a bit as an upright or inverted series of bits is called Direct Sequence Spread Spectrum ([DSSS](https://en.wikipedia.org/wiki/Direct-sequence_spread_spectrum)). It is a form of redundancy, commonly used as a way to fight noise as we saw in this challenge. One notable way this is used is in anti-jamming technology. If you were to take a spectrogram of the signal it would look like this:
