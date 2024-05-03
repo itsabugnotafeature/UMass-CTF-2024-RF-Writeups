@@ -1,4 +1,4 @@
-# Red40-Maxxing Writeup
+# Yellow5-Maxxing Writeup
 ---
 
 ### Summary
@@ -94,4 +94,4 @@ Aside: This technique of transmitting a bit as an upright or inverted series of 
 
 ![alt text](image-7.png)
 
-The power of transmission is spread out across the entire spectrum which means that you would have to jam the entire bandwidth to stop this transmission. This is both harder and more expensive. For a similar reason, it is hard to detect that someone is transmitting in the first place if they are using DSSS. These techniques all made it particularly interesting  for military communication. Indeed the first widespread uses of DSSS were in military communication, notably GPS (yes the GPS you use everyday, google the specs, they're public knowledge). In addition DSSS continues to see everyday use through the CDMA system used by nearly all modern wireless communication protocols (WiFi, Bluetooth, BLE).
+The power of transmission is spread out across the entire spectrum which means that you would have to jam the entire bandwidth to stop this transmission. This is both harder and more expensive. For a similar reason, it is hard to detect that someone is transmitting in the first place, if they are using DSSS. These techniques all made it particularly interesting  for military communication. Indeed the first widespread uses of DSSS were in military communication, notably GPS (yes the GPS you use everyday, google the specs, they're public knowledge). In addition DSSS continues to see everyday use through the CDMA system used by nearly all modern wireless communication protocols (WiFi, Bluetooth, BLE).
