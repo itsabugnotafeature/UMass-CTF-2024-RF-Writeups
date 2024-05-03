@@ -102,7 +102,7 @@ Below is my solve script with comments that should connect to what I talked abou
 IQ_SAMPLE_RATE = 40;
 GRAY_CODE = [0 1 3 2];
 % Read in the signal
-recovered_samples = audioread("three.wav");
+recovered_samples = audioread("yellow6-maxxing.wav");
 % Generate a wave that oscillates every 10 samples
 % and lasts long enough to cover the entire signal
 t = 0:2 * pi / 10:2 * pi * length(recovered_samples) / 10 - (2 * pi / 10);
@@ -154,7 +154,7 @@ end
 And voila there is our message.
 
 ```matlab
->> three
+>> yellow6Maxxing
 Hiiii_KevinHiiii_KevinHiiii_KevinHiiii_KevinHiiii_Kevin...
 ```
 

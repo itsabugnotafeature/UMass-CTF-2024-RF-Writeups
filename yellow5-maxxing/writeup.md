@@ -70,7 +70,7 @@ disp(bin2char(recovered_bits(41:end)));
 And just like that, we recover the message (after trimming the training bits).
 
 ```matlab
->> yellow5-maxxing
+>> yellow5Maxxing
 Krusty_Krab_pizza_is_the_pizza_for_you_and_meKrusty_Krab_pizza...
 ```
 

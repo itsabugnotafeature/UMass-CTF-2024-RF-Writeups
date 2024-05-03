@@ -82,7 +82,7 @@ end
 And just like that we get the flag, repeated several times as described.
 
 ```matlab
->> red40-maxxing
+>> red40Maxxing
 Its_not_just_a_boulder_its_a_rockIts_not_just_a_...
 ```
 
